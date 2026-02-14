@@ -20,8 +20,10 @@ export default function Login() {
     if (!email || !password) { setError("Please fill in all fields"); return; }
     setLoading(true);
     try {
-      await login(email, password);
-      navigate("/");
+      const u = await login(email, password);
+      const stored = localStorage.getItem("homescreen_user");
+      const parsed = stored ? JSON.parse(stored) : null;
+      navigate(parsed?.role === "seller" ? "/dashboard" : "/");
     } catch {
       setError("Invalid credentials");
     } finally {

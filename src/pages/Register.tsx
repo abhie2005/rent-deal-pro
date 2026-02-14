@@ -22,7 +22,7 @@ export default function Register() {
     setLoading(true);
     try {
       await register(email, password, name, role);
-      navigate("/");
+      navigate(role === "seller" ? "/dashboard" : "/");
     } catch {
       setError("Registration failed");
     } finally {
