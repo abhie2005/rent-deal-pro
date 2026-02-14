@@ -23,7 +23,7 @@ export default function Navbar() {
   });
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border/50 bg-card/80 nav-blur">
+    <nav className="fixed top-0 left-0 right-0 z-50 border-b border-primary/20 nav-blur" style={{ background: "linear-gradient(135deg, hsla(270, 65%, 50%, 0.12), hsla(320, 60%, 55%, 0.08), hsla(30, 85%, 60%, 0.05), hsla(0, 0%, 100%, 0.7))" }}>
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         <Link to="/" className="flex items-center gap-2">
           <div className="flex h-9 w-9 items-center justify-center rounded-lg" style={{ background: "var(--gradient-primary)" }}>
