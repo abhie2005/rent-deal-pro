@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 
 const navLinks = [
-  { to: "/", label: "Browse", icon: Home },
+  { to: "/", label: "Browse", icon: Home, hideForRole: "seller" as const },
   { to: "/create-listing", label: "New Listing", icon: PlusCircle, auth: true, role: "seller" as const },
   { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard, auth: true, role: "seller" as const },
 ];
@@ -19,6 +19,7 @@ export default function Navbar() {
   const visibleLinks = navLinks.filter((l) => {
     if (l.auth && !isAuthenticated) return false;
     if (l.role && user?.role !== l.role) return false;
+    if ("hideForRole" in l && l.hideForRole && user?.role === l.hideForRole) return false;
     return true;
   });
 
