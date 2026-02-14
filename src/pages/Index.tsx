@@ -72,7 +72,7 @@ export default function Index() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="font-display text-4xl font-bold tracking-tight text-primary-foreground sm:text-5xl lg:text-6xl"
+            className="font-display text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl"
           >
             Find Your Perfect Home
           </motion.h1>
@@ -80,7 +80,7 @@ export default function Index() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.15 }}
-            className="mt-4 text-lg text-primary-foreground/80"
+            className="mt-4 text-lg text-foreground/80"
           >
             AI-powered screening, instant credit checks, and a smart assistant for every listing.
           </motion.p>
