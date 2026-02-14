@@ -64,7 +64,9 @@ export default function Index() {
   return (
     <div className="min-h-screen pt-16">
       {/* Hero */}
-      <section className="relative flex items-center justify-center overflow-hidden" style={{ minHeight: "520px", background: "var(--gradient-hero)" }}>
+      <section className="relative flex items-center justify-center overflow-hidden" style={{ minHeight: "520px" }}>
+        <img src={heroBg} alt="Modern luxury home" className="absolute inset-0 h-full w-full object-cover" />
+        <div className="hero-overlay absolute inset-0" />
         <div className="relative z-10 mx-auto max-w-3xl px-4 text-center">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
