@@ -158,7 +158,7 @@ export default function Index() {
       </section>
 
       {/* Filters + Listings */}
-      <section className="container mx-auto px-4 py-10 rounded-2xl my-4" style={{ background: "linear-gradient(135deg, hsla(270, 65%, 50%, 0.12), hsla(320, 60%, 55%, 0.08), hsla(30, 85%, 60%, 0.05), hsla(0, 0%, 100%, 0.7))" }}>
+      <section className="container mx-auto px-4 py-10">
         {/* Filter bar */}
         <div className="mb-8 flex flex-wrap items-center gap-3">
           <div className="flex items-center gap-1 rounded-lg border border-border p-1">
