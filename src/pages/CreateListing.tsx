@@ -39,6 +39,7 @@ export default function CreateListing() {
   const [minIncome, setMinIncome] = useState("40000");
   const [noEvictions, setNoEvictions] = useState(true);
   const [noBankruptcy, setNoBankruptcy] = useState(true);
+  const [noCriminalRecord, setNoCriminalRecord] = useState(true);
 
   const addImage = () => {
     if (newUrl.trim()) {
@@ -199,6 +200,10 @@ export default function CreateListing() {
                 <label className="flex items-center gap-3 cursor-pointer">
                   <input type="checkbox" checked={noBankruptcy} onChange={(e) => setNoBankruptcy(e.target.checked)} className="h-4 w-4 rounded border-input accent-primary" />
                   <span className="text-sm text-foreground">No bankruptcy history</span>
+                </label>
+                <label className="flex items-center gap-3 cursor-pointer">
+                  <input type="checkbox" checked={noCriminalRecord} onChange={(e) => setNoCriminalRecord(e.target.checked)} className="h-4 w-4 rounded border-input accent-primary" />
+                  <span className="text-sm text-foreground">No criminal record</span>
                 </label>
               </div>
             </motion.div>
