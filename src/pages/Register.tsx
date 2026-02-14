@@ -39,7 +39,7 @@ export default function Register() {
       >
         <div className="text-center">
           <h1 className="font-display text-2xl font-bold text-foreground">Create Your Account</h1>
-          <p className="mt-1 text-sm text-muted-foreground">Join HomeScreen to find or list properties</p>
+          <p className="mt-1 text-sm text-muted-foreground">Join TrustKey to find or list properties</p>
         </div>
 
         <form onSubmit={handleSubmit} className="mt-6 space-y-4">
