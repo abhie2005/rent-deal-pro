@@ -1,54 +1,48 @@
 
 
-# Smart Search with Abbreviations and Auto-Suggestions
+# Smart Search with Abbreviations and Partial Matching
 
 ## What Changes
 
-**1. City Abbreviation Map**
-Add a lookup dictionary so users can type shorthand like "SF", "PDX", "MIA", "DEN", "ATX", "CLT" (and partial/lowercase versions like "san fran", "sf", "austin") and still match the correct city.
+The search bar on the home page will be updated so users can type partial city names (e.g., "por" for Portland), common abbreviations (e.g., "SF" for San Francisco), and have everything matched case-insensitively. A suggestions dropdown will appear as the user types.
 
-**2. Smarter Search Matching**
-Update the filtering logic in `Index.tsx` so the search input:
-- Is fully case-insensitive (already partially done)
-- Matches city abbreviations (e.g., "SF" matches "San Francisco")
-- Matches partial city names (e.g., "por" matches "Portland")
-- Also searches against address and state fields
+## Changes
 
-**3. Search Suggestions Dropdown**
-Add an auto-suggest dropdown below the search bar that appears as the user types, showing:
-- Matching cities with a MapPin icon (e.g., typing "S" shows San Francisco, Charlotte -- wait, no -- shows cities starting with or containing "S")
-- Matching listing titles
-- Clicking a suggestion fills the search or sets the city filter
+**1. New file: `src/lib/city-aliases.ts`**
+A dictionary mapping common abbreviations and shorthand to canonical city names:
+- "sf", "san fran" -> San Francisco
+- "pdx" -> Portland
+- "mia" -> Miami
+- "atx" -> Austin
+- "den" -> Denver
+- "clt" -> Charlotte
+
+Also includes a helper function that takes a search string and returns any matching city names (via alias match or partial name match).
+
+**2. Modified file: `src/pages/Index.tsx`**
+- Import the alias helper
+- Update the `filtered` logic so the search term is checked against:
+  - City aliases (e.g., "sf" matches San Francisco listings)
+  - Partial city names (e.g., "por" matches Portland)
+  - Address and state fields (not just title and city)
+  - All comparisons fully case-insensitive
+- Add a suggestions dropdown below the search input that shows:
+  - Matching cities (with MapPin icon) -- clicking sets the city filter
+  - Matching listings (with Home icon) -- clicking navigates to that listing
+- Dropdown appears when the input is focused and has text, closes on blur or selection or Escape key
 
 ## Technical Details
 
-### File: `src/lib/city-aliases.ts` (new)
-A simple map of aliases to canonical city names:
+### Filtering logic update (in `filtered` useMemo)
 ```
-{
-  "sf": "San Francisco",
-  "san fran": "San Francisco",
-  "pdx": "Portland",
-  "mia": "Miami",
-  "atx": "Austin",
-  "den": "Denver",
-  "clt": "Charlotte",
-  ...
-}
+For each listing, check if the lowercased search term:
+1. Matches any city alias -> resolve to canonical city name, compare to listing.city
+2. Is a substring of listing.city, listing.title, listing.address, or listing.state
+If any match, include the listing.
 ```
 
-### File: `src/pages/Index.tsx` (modified)
-- Import the alias map
-- Add `searchSuggestions` computed value that returns matching cities and listings based on current input
-- Add a dropdown panel below the search input showing suggestions grouped by "Cities" and "Listings"
-- Update the `filtered` logic to check search text against city aliases, partial city names, address, and title -- all case-insensitive
-- Clicking a city suggestion sets the `city` filter and clears search; clicking a listing suggestion navigates to it
-- Dropdown closes on blur or when a suggestion is selected
-
-### Suggestion Dropdown UI
-- Appears below the search bar when focused and input has text
-- Styled consistently with the card theme (bg-card, shadow, rounded)
-- Shows MapPin icon for cities, Home icon for listings
-- Highlights matching text portion
-- Keyboard-friendly (closes on Escape)
+### Suggestions (new `useMemo`)
+- Deduplicate matching cities from the alias map and from listings
+- Show up to 3 city suggestions and up to 4 listing suggestions
+- Render in a positioned dropdown below the search bar with consistent card styling
 
