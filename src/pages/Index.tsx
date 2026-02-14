@@ -1,10 +1,12 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef } from "react";
 import { Search, SlidersHorizontal, X, Home as HomeIcon, Building2, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ListingCard from "@/components/ListingCard";
 import ListingSkeleton from "@/components/ListingSkeleton";
 import { mockListings } from "@/lib/mock-data";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
+import { matchesSearch, getMatchingCities } from "@/lib/city-aliases";
 import heroBg from "@/assets/hero-bg.jpg";
 
 const cities = ["All", "Austin", "Portland", "Miami", "Denver", "San Francisco", "Charlotte"];
@@ -15,15 +17,49 @@ export default function Index() {
   const [listingType, setListingType] = useState<"all" | "rent" | "sale">("all");
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [loading] = useState(false);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const blurTimeout = useRef<ReturnType<typeof setTimeout>>();
+  const navigate = useNavigate();
 
   const filtered = useMemo(() => {
     return mockListings.filter((l) => {
-      if (search && !l.title.toLowerCase().includes(search.toLowerCase()) && !l.city.toLowerCase().includes(search.toLowerCase())) return false;
+      if (search && !matchesSearch(search, l)) return false;
       if (city !== "All" && l.city !== city) return false;
       if (listingType !== "all" && l.listingType !== listingType) return false;
       return true;
     });
   }, [search, city, listingType]);
+
+  const suggestions = useMemo(() => {
+    if (!search.trim()) return { cities: [], listings: [] };
+    const matchedCities = getMatchingCities(search);
+    const matchedListings = mockListings
+      .filter((l) => matchesSearch(search, l))
+      .slice(0, 4);
+    return { cities: matchedCities.slice(0, 3), listings: matchedListings };
+  }, [search]);
+
+  const hasSuggestions = suggestions.cities.length > 0 || suggestions.listings.length > 0;
+
+  const handleFocus = () => {
+    clearTimeout(blurTimeout.current);
+    setShowSuggestions(true);
+  };
+
+  const handleBlur = () => {
+    blurTimeout.current = setTimeout(() => setShowSuggestions(false), 150);
+  };
+
+  const selectCity = (c: string) => {
+    setCity(c);
+    setSearch("");
+    setShowSuggestions(false);
+  };
+
+  const selectListing = (id: string) => {
+    setShowSuggestions(false);
+    navigate(`/listing/${id}`);
+  };
 
   return (
     <div className="min-h-screen pt-16">
@@ -54,29 +90,69 @@ export default function Index() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="mt-8 flex items-center overflow-hidden rounded-xl bg-card shadow-2xl"
+            className="relative mt-8"
           >
-            <div className="flex flex-1 items-center gap-2 px-4">
-              <Search className="h-5 w-5 shrink-0 text-muted-foreground" />
-              <input
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                placeholder="Search by city, neighborhood, or address..."
-                className="w-full bg-transparent py-4 text-sm outline-none placeholder:text-muted-foreground"
-              />
-              {search && (
-                <button onClick={() => setSearch("")} className="text-muted-foreground hover:text-foreground">
-                  <X className="h-4 w-4" />
-                </button>
-              )}
+            <div className="flex items-center overflow-hidden rounded-xl bg-card shadow-2xl">
+              <div className="flex flex-1 items-center gap-2 px-4">
+                <Search className="h-5 w-5 shrink-0 text-muted-foreground" />
+                <input
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  onFocus={handleFocus}
+                  onBlur={handleBlur}
+                  onKeyDown={(e) => e.key === "Escape" && setShowSuggestions(false)}
+                  placeholder="Search by city, abbreviation, or address..."
+                  className="w-full bg-transparent py-4 text-sm outline-none placeholder:text-muted-foreground"
+                />
+                {search && (
+                  <button onClick={() => { setSearch(""); setShowSuggestions(false); }} className="text-muted-foreground hover:text-foreground">
+                    <X className="h-4 w-4" />
+                  </button>
+                )}
+              </div>
+              <Button size="lg" className="m-1.5 shrink-0 rounded-lg" onClick={() => setShowSuggestions(false)}>
+                Search
+              </Button>
             </div>
-            <Button
-              size="lg"
-              className="m-1.5 shrink-0 rounded-lg"
-              onClick={() => {}}
-            >
-              Search
-            </Button>
+
+            {/* Suggestions dropdown */}
+            {showSuggestions && hasSuggestions && (
+              <div className="absolute left-0 right-0 top-full z-50 mt-2 overflow-hidden rounded-xl border border-border bg-card shadow-xl">
+                {suggestions.cities.length > 0 && (
+                  <div className="p-2">
+                    <p className="px-2 py-1 text-xs font-medium text-muted-foreground">Cities</p>
+                    {suggestions.cities.map((c) => (
+                      <button
+                        key={c}
+                        onMouseDown={(e) => e.preventDefault()}
+                        onClick={() => selectCity(c)}
+                        className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm text-foreground hover:bg-accent"
+                      >
+                        <MapPin className="h-4 w-4 text-muted-foreground" />
+                        {c}
+                      </button>
+                    ))}
+                  </div>
+                )}
+                {suggestions.listings.length > 0 && (
+                  <div className="border-t border-border p-2">
+                    <p className="px-2 py-1 text-xs font-medium text-muted-foreground">Listings</p>
+                    {suggestions.listings.map((l) => (
+                      <button
+                        key={l.id}
+                        onMouseDown={(e) => e.preventDefault()}
+                        onClick={() => selectListing(l.id)}
+                        className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm text-foreground hover:bg-accent"
+                      >
+                        <HomeIcon className="h-4 w-4 text-muted-foreground" />
+                        <span className="truncate">{l.title}</span>
+                        <span className="ml-auto shrink-0 text-xs text-muted-foreground">{l.city}</span>
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
           </motion.div>
         </div>
       </section>
