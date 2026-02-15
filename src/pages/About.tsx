@@ -4,10 +4,10 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
 const teamMembers = [
-  "Tiea Hapani",
-  "Princy Ramani",
-  "Abhishek Rangani",
-  "Ayush Rangrej",
+  { name: "Tiea Hapani" },
+  { name: "Princy Ramani", linkedin: "https://www.linkedin.com/in/princy-ramani" },
+  { name: "Abhishek Rangani" },
+  { name: "Ayush Rangrej" },
 ];
 
 export default function About() {
@@ -52,15 +52,19 @@ export default function About() {
         >
           <h2 className="font-display text-2xl font-semibold text-foreground">Built by</h2>
           <div className="grid grid-cols-2 gap-4">
-            {teamMembers.map((name, i) => (
+            {teamMembers.map((member, i) => (
               <motion.div
-                key={name}
+                key={member.name}
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.6 + i * 0.1, duration: 0.4 }}
                 className="rounded-xl border border-primary/15 bg-card/80 backdrop-blur-sm p-4 shadow-sm"
               >
-                <p className="font-medium text-foreground">{name}</p>
+                {member.linkedin ? (
+                  <a href={member.linkedin} target="_blank" rel="noopener noreferrer" className="font-medium text-primary hover:underline">{member.name}</a>
+                ) : (
+                  <p className="font-medium text-foreground">{member.name}</p>
+                )}
               </motion.div>
             ))}
           </div>
