@@ -18,7 +18,7 @@ export default function Register() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
-    if (!fullName || !email || !password) { setError("Please fill in all fields"); return; }
+    if (!fullName || !email || !password) {setError("Please fill in all fields");return;}
     setLoading(true);
     try {
       await register(email, password, fullName, role);
@@ -35,8 +35,8 @@ export default function Register() {
       <motion.div
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
-        className="w-full max-w-md rounded-2xl border border-border bg-card p-8 card-shadow"
-      >
+        className="w-full max-w-md rounded-2xl border border-border bg-card p-8 card-shadow">
+
         <div className="text-center">
           <h1 className="font-display text-2xl font-bold text-foreground">Create Your Account</h1>
           <p className="mt-1 text-sm text-muted-foreground">Join TrustKey to find or list properties</p>
@@ -53,19 +53,19 @@ export default function Register() {
                 type="button"
                 onClick={() => setRole("buyer")}
                 className={`flex flex-col items-center gap-2 rounded-xl border-2 p-4 transition-colors ${
-                  role === "buyer" ? "border-primary bg-primary/5" : "border-border hover:border-muted-foreground/30"
-                }`}
-              >
+                role === "buyer" ? "border-primary bg-primary/5" : "border-border hover:border-muted-foreground/30"}`
+                }>
+
                 <Home className={`h-6 w-6 ${role === "buyer" ? "text-primary" : "text-muted-foreground"}`} />
-                <span className={`text-sm font-medium ${role === "buyer" ? "text-primary" : "text-muted-foreground"}`}>Renter / Buyer</span>
+                
               </button>
               <button
                 type="button"
                 onClick={() => setRole("seller")}
                 className={`flex flex-col items-center gap-2 rounded-xl border-2 p-4 transition-colors ${
-                  role === "seller" ? "border-primary bg-primary/5" : "border-border hover:border-muted-foreground/30"
-                }`}
-              >
+                role === "seller" ? "border-primary bg-primary/5" : "border-border hover:border-muted-foreground/30"}`
+                }>
+
                 <Key className={`h-6 w-6 ${role === "seller" ? "text-primary" : "text-muted-foreground"}`} />
                 <span className={`text-sm font-medium ${role === "seller" ? "text-primary" : "text-muted-foreground"}`}>Landlord / Seller</span>
               </button>
@@ -78,8 +78,8 @@ export default function Register() {
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
               className="w-full rounded-lg border border-input bg-background px-3 py-2.5 text-sm outline-none placeholder:text-muted-foreground focus:ring-2 focus:ring-ring"
-              placeholder="Jane Doe"
-            />
+              placeholder="Jane Doe" />
+
           </div>
 
           <div>
@@ -89,8 +89,8 @@ export default function Register() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="w-full rounded-lg border border-input bg-background px-3 py-2.5 text-sm outline-none placeholder:text-muted-foreground focus:ring-2 focus:ring-ring"
-              placeholder="you@example.com"
-            />
+              placeholder="you@example.com" />
+
           </div>
 
           <div>
@@ -100,8 +100,8 @@ export default function Register() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="w-full rounded-lg border border-input bg-background px-3 py-2.5 text-sm outline-none placeholder:text-muted-foreground focus:ring-2 focus:ring-ring"
-              placeholder="Min. 8 characters"
-            />
+              placeholder="Min. 8 characters" />
+
           </div>
 
           <Button type="submit" className="w-full" size="lg" disabled={loading}>
@@ -115,6 +115,6 @@ export default function Register() {
           <Link to="/login" className="font-medium text-foreground hover:underline">Sign in</Link>
         </p>
       </motion.div>
-    </div>
-  );
+    </div>);
+
 }
