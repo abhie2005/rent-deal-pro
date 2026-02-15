@@ -12,6 +12,7 @@ import Register from "./pages/Register";
 import ListingDetail from "./pages/ListingDetail";
 import CreateListing from "./pages/CreateListing";
 import Dashboard from "./pages/Dashboard";
+import SellerListings from "./pages/SellerListings";
 import NotFound from "./pages/NotFound";
 import About from "./pages/About";
 
@@ -34,6 +35,7 @@ const App = () => (
                 <Route path="/listing/:id" element={<ListingDetail />} />
                 <Route path="/create-listing" element={<CreateListing />} />
                 <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/seller-listings" element={<SellerListings />} />
                 <Route path="/about" element={<About />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
