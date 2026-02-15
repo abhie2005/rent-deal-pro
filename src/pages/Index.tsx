@@ -1,13 +1,20 @@
-import { useState, useMemo, useRef } from "react";
+import { useState, useMemo, useRef, useEffect } from "react";
 import { Search, SlidersHorizontal, X, Home as HomeIcon, Building2, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ListingCard from "@/components/ListingCard";
 import ListingSkeleton from "@/components/ListingSkeleton";
 import { mockListings } from "@/lib/mock-data";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { matchesSearch, getMatchingCities } from "@/lib/city-aliases";
-import heroBg from "@/assets/hero-bg.jpg";
+
+const heroImages = [
+  "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1600&h=900&fit=crop",
+  "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1600&h=900&fit=crop",
+  "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1600&h=900&fit=crop",
+  "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1600&h=900&fit=crop",
+  "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1600&h=900&fit=crop",
+];
 
 const cities = ["All", "Austin", "Portland", "Miami", "Denver", "San Francisco", "Charlotte"];
 
@@ -18,8 +25,16 @@ export default function Index() {
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [loading] = useState(false);
   const [showSuggestions, setShowSuggestions] = useState(false);
+  const [heroIndex, setHeroIndex] = useState(0);
   const blurTimeout = useRef<ReturnType<typeof setTimeout>>();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setHeroIndex((prev) => (prev + 1) % heroImages.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
 
   const filtered = useMemo(() => {
     return mockListings.filter((l) => {
@@ -65,7 +80,18 @@ export default function Index() {
     <div className="min-h-screen pt-16">
       {/* Hero */}
       <section className="relative flex items-center justify-center overflow-hidden" style={{ minHeight: "520px" }}>
-        <img src={heroBg} alt="Modern luxury home" className="absolute inset-0 h-full w-full object-cover" />
+        <AnimatePresence mode="popLayout">
+          <motion.img
+            key={heroIndex}
+            src={heroImages[heroIndex]}
+            alt="Luxury home"
+            className="absolute inset-0 h-full w-full object-cover"
+            initial={{ opacity: 0, scale: 1.05 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1.2, ease: "easeInOut" }}
+          />
+        </AnimatePresence>
         <div className="hero-overlay absolute inset-0" />
         <div className="relative z-10 mx-auto max-w-3xl px-4 text-center">
           <motion.h1
