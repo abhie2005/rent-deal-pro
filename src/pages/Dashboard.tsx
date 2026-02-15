@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { mockListings, mockApplications } from "@/lib/mock-data";
 import ScreeningBadge from "@/components/ScreeningBadge";
 import { Button } from "@/components/ui/button";
@@ -6,6 +6,27 @@ import { ChevronDown, ChevronUp, Users, CheckCircle2, XCircle } from "lucide-rea
 import { motion, AnimatePresence, useAnimation } from "framer-motion";
 import { toast } from "sonner";
 import type { Application } from "@/lib/api";
+
+function AnimatedNumber({ value, duration = 1000 }: { value: number; duration?: number }) {
+  const [display, setDisplay] = useState(0);
+  const ref = useRef<number>();
+
+  useEffect(() => {
+    const start = 0;
+    const startTime = performance.now();
+    const animate = (now: number) => {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+      setDisplay(Math.round(start + (value - start) * eased));
+      if (progress < 1) ref.current = requestAnimationFrame(animate);
+    };
+    ref.current = requestAnimationFrame(animate);
+    return () => { if (ref.current) cancelAnimationFrame(ref.current); };
+  }, [value, duration]);
+
+  return <>{display}</>;
+}
 
 export default function Dashboard() {
   const [expanded, setExpanded] = useState<string | null>(null);
@@ -30,15 +51,15 @@ export default function Dashboard() {
         <div className="mt-6 grid grid-cols-3 gap-4">
           <div className="rounded-xl border border-primary/20 bg-gradient-to-br from-primary/5 to-primary/10 p-4 card-shadow">
             <div className="flex items-center gap-2 text-primary"><Users className="h-4 w-4" /> Applicants</div>
-            <p className="mt-1 font-display text-2xl font-bold text-foreground">{filteredApps.length}</p>
+            <p className="mt-1 font-display text-2xl font-bold text-foreground"><AnimatedNumber value={filteredApps.length} /></p>
           </div>
           <div className="rounded-xl border border-screening-green/20 bg-gradient-to-br from-screening-green/5 to-screening-green/10 p-4 card-shadow">
             <div className="flex items-center gap-2 text-screening-green"><CheckCircle2 className="h-4 w-4" /> Approved</div>
-            <p className="mt-1 font-display text-2xl font-bold text-foreground">{filteredApps.filter((a) => a.status === "approved").length}</p>
+            <p className="mt-1 font-display text-2xl font-bold text-foreground"><AnimatedNumber value={filteredApps.filter((a) => a.status === "approved").length} /></p>
           </div>
           <div className="rounded-xl border border-screening-red/20 bg-gradient-to-br from-screening-red/5 to-screening-red/10 p-4 card-shadow">
             <div className="flex items-center gap-2 text-screening-red"><XCircle className="h-4 w-4" /> Rejected</div>
-            <p className="mt-1 font-display text-2xl font-bold text-foreground">{rejectedCount}</p>
+            <p className="mt-1 font-display text-2xl font-bold text-foreground"><AnimatedNumber value={rejectedCount} /></p>
           </div>
         </div>
 
