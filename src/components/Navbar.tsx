@@ -6,10 +6,10 @@ import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 
 const navLinks = [
-  
-  { to: "/create-listing", label: "New Listing", icon: PlusCircle, auth: true, role: "seller" as const },
-  { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard, auth: true, role: "seller" as const },
-];
+
+{ to: "/create-listing", label: "New Listing", icon: PlusCircle, auth: true, role: "seller" as const },
+{ to: "/dashboard", label: "Dashboard", icon: LayoutDashboard, auth: true, role: "seller" as const }];
+
 
 export default function Navbar() {
   const { user, isAuthenticated, logout } = useAuth();
@@ -27,9 +27,9 @@ export default function Navbar() {
     <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border bg-card/95 nav-blur">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         <div className="flex items-center gap-2">
-          <Link to="/" className="flex h-9 w-9 items-center justify-center rounded-lg" style={{ background: "var(--gradient-primary)" }}>
-            <Home className="h-5 w-5 text-primary-foreground" />
-          </Link>
+          
+
+
           <Link to="/" className="font-display text-xl font-semibold text-foreground hover:text-primary transition-colors">
             TrustKey
           </Link>
@@ -44,19 +44,19 @@ export default function Navbar() {
                 key={l.to}
                 to={l.to}
                 className={`flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
-                  active ? "bg-primary/10 text-primary" : "text-muted-foreground hover:text-foreground hover:bg-muted"
-                }`}
-              >
+                active ? "bg-primary/10 text-primary" : "text-muted-foreground hover:text-foreground hover:bg-muted"}`
+                }>
+
                 <l.icon className="h-4 w-4" />
                 {l.label}
-              </Link>
-            );
+              </Link>);
+
           })}
         </div>
 
         <div className="hidden items-center gap-2 md:flex">
-          {isAuthenticated ? (
-            <div className="flex items-center gap-3">
+          {isAuthenticated ?
+          <div className="flex items-center gap-3">
               <span className="text-sm text-muted-foreground">
                 {user?.name}
                 <span className="ml-1 rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
@@ -67,9 +67,9 @@ export default function Navbar() {
                 <LogOut className="mr-1 h-4 w-4" />
                 Log Out
               </Button>
-            </div>
-          ) : (
-            <>
+            </div> :
+
+          <>
               <Button variant="ghost" size="sm" asChild>
                 <Link to="/login"><LogIn className="mr-1 h-4 w-4" />Log In</Link>
               </Button>
@@ -77,7 +77,7 @@ export default function Navbar() {
                 <Link to="/register"><UserPlus className="mr-1 h-4 w-4" />Sign Up</Link>
               </Button>
             </>
-          )}
+          }
         </div>
 
         {/* Mobile toggle */}
@@ -88,33 +88,33 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       <AnimatePresence>
-        {mobileOpen && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            className="overflow-hidden border-t border-border md:hidden bg-card"
-          >
+        {mobileOpen &&
+        <motion.div
+          initial={{ height: 0, opacity: 0 }}
+          animate={{ height: "auto", opacity: 1 }}
+          exit={{ height: 0, opacity: 0 }}
+          className="overflow-hidden border-t border-border md:hidden bg-card">
+
             <div className="flex flex-col gap-1 p-4">
-              {visibleLinks.map((l) => (
-                <Link
-                  key={l.to}
-                  to={l.to}
-                  onClick={() => setMobileOpen(false)}
-                  className="flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm font-medium text-muted-foreground hover:bg-muted hover:text-foreground"
-                >
+              {visibleLinks.map((l) =>
+            <Link
+              key={l.to}
+              to={l.to}
+              onClick={() => setMobileOpen(false)}
+              className="flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm font-medium text-muted-foreground hover:bg-muted hover:text-foreground">
+
                   <l.icon className="h-4 w-4" />
                   {l.label}
                 </Link>
-              ))}
+            )}
               <div className="mt-2 border-t border-border pt-2">
-                {isAuthenticated ? (
-                  <button onClick={() => { logout(); setMobileOpen(false); }} className="flex w-full items-center gap-2 rounded-lg px-3 py-2.5 text-sm text-muted-foreground hover:bg-muted">
+                {isAuthenticated ?
+              <button onClick={() => {logout();setMobileOpen(false);}} className="flex w-full items-center gap-2 rounded-lg px-3 py-2.5 text-sm text-muted-foreground hover:bg-muted">
                     <LogOut className="h-4 w-4" />
                     Log Out
-                  </button>
-                ) : (
-                  <>
+                  </button> :
+
+              <>
                     <Link to="/login" onClick={() => setMobileOpen(false)} className="flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm text-muted-foreground hover:bg-muted">
                       <LogIn className="h-4 w-4" /> Log In
                     </Link>
@@ -122,12 +122,12 @@ export default function Navbar() {
                       <UserPlus className="h-4 w-4" /> Sign Up
                     </Link>
                   </>
-                )}
+              }
               </div>
             </div>
           </motion.div>
-        )}
+        }
       </AnimatePresence>
-    </nav>
-  );
+    </nav>);
+
 }
