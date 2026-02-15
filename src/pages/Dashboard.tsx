@@ -87,7 +87,9 @@ export default function Dashboard() {
                   className="flex w-full items-center justify-between p-4 text-left"
                 >
                   <div className="flex items-center gap-4">
-                    <ScreeningBadge score={app.matchScore} size="sm" />
+                    <div className="flex h-9 w-9 items-center justify-center rounded-full font-bold text-sm text-primary-foreground" style={{ background: "var(--gradient-primary)" }}>
+                      {app.applicantName.split(" ").map(n => n[0]).join("")}
+                    </div>
                     <div>
                       <div className="flex items-center gap-2">
                         <p className="font-medium text-foreground">{app.applicantName}</p>
