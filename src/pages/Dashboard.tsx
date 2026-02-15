@@ -2,7 +2,7 @@ import { useState } from "react";
 import { mockListings, mockApplications } from "@/lib/mock-data";
 import ScreeningBadge from "@/components/ScreeningBadge";
 import { Button } from "@/components/ui/button";
-import { ChevronDown, ChevronUp, Users, TrendingUp, CheckCircle2, XCircle } from "lucide-react";
+import { ChevronDown, ChevronUp, Users, CheckCircle2, XCircle } from "lucide-react";
 import { motion, AnimatePresence, useAnimation } from "framer-motion";
 import { toast } from "sonner";
 import type { Application } from "@/lib/api";
@@ -14,9 +14,7 @@ export default function Dashboard() {
   const sellerListings = mockListings.filter((l) => l.sellerId === "s1");
   const filteredApps = applications;
 
-  const avgScore = filteredApps.length
-    ? Math.round(filteredApps.reduce((s, a) => s + a.matchScore, 0) / filteredApps.length)
-    : 0;
+  const rejectedCount = filteredApps.filter((a) => a.status === "rejected").length;
 
   const updateStatus = (id: string, status: "approved" | "rejected") => {
     setApplications((prev) => prev.map((a) => (a.id === id ? { ...a, status } : a)));
@@ -30,17 +28,17 @@ export default function Dashboard() {
 
         {/* Stats */}
         <div className="mt-6 grid grid-cols-3 gap-4">
-          <div className="rounded-xl border border-border bg-card p-4 card-shadow">
-            <div className="flex items-center gap-2 text-muted-foreground"><Users className="h-4 w-4" /> Applicants</div>
+          <div className="rounded-xl border border-primary/20 bg-gradient-to-br from-primary/5 to-primary/10 p-4 card-shadow">
+            <div className="flex items-center gap-2 text-primary"><Users className="h-4 w-4" /> Applicants</div>
             <p className="mt-1 font-display text-2xl font-bold text-foreground">{filteredApps.length}</p>
           </div>
-          <div className="rounded-xl border border-border bg-card p-4 card-shadow">
-            <div className="flex items-center gap-2 text-muted-foreground"><TrendingUp className="h-4 w-4" /> Avg Score</div>
-            <p className="mt-1 font-display text-2xl font-bold text-foreground">{avgScore}</p>
-          </div>
-          <div className="rounded-xl border border-border bg-card p-4 card-shadow">
-            <div className="flex items-center gap-2 text-muted-foreground"><CheckCircle2 className="h-4 w-4" /> Approved</div>
+          <div className="rounded-xl border border-screening-green/20 bg-gradient-to-br from-screening-green/5 to-screening-green/10 p-4 card-shadow">
+            <div className="flex items-center gap-2 text-screening-green"><CheckCircle2 className="h-4 w-4" /> Approved</div>
             <p className="mt-1 font-display text-2xl font-bold text-foreground">{filteredApps.filter((a) => a.status === "approved").length}</p>
+          </div>
+          <div className="rounded-xl border border-screening-red/20 bg-gradient-to-br from-screening-red/5 to-screening-red/10 p-4 card-shadow">
+            <div className="flex items-center gap-2 text-screening-red"><XCircle className="h-4 w-4" /> Rejected</div>
+            <p className="mt-1 font-display text-2xl font-bold text-foreground">{rejectedCount}</p>
           </div>
         </div>
 
