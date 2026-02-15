@@ -15,6 +15,7 @@ export default function Navbar() {
   const { user, isAuthenticated, logout } = useAuth();
   const location = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [selectedRole, setSelectedRole] = useState<"buyer" | "seller">("buyer");
 
   const visibleLinks = navLinks.filter((l) => {
     if (l.auth && !isAuthenticated) return false;
@@ -70,6 +71,28 @@ export default function Navbar() {
             </div>
           ) : (
             <>
+              <div className="flex items-center rounded-lg border border-border bg-muted/50 p-0.5">
+                <button
+                  onClick={() => setSelectedRole("buyer")}
+                  className={`rounded-md px-3 py-1.5 text-xs font-medium transition-colors ${
+                    selectedRole === "buyer"
+                      ? "bg-primary text-primary-foreground shadow-sm"
+                      : "text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  Buyer
+                </button>
+                <button
+                  onClick={() => setSelectedRole("seller")}
+                  className={`rounded-md px-3 py-1.5 text-xs font-medium transition-colors ${
+                    selectedRole === "seller"
+                      ? "bg-primary text-primary-foreground shadow-sm"
+                      : "text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  Seller
+                </button>
+              </div>
               <Button variant="ghost" size="sm" asChild>
                 <Link to="/login"><LogIn className="mr-1 h-4 w-4" />Log In</Link>
               </Button>
