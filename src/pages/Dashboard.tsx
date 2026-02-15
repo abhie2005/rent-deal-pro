@@ -27,7 +27,7 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen pt-16">
       <div className="container mx-auto px-4 py-10">
-        <h1 className="font-display text-3xl font-bold text-foreground">Seller Dashboard</h1>
+        <h1 className="font-display text-3xl font-bold text-foreground text-center">Seller Dashboard</h1>
 
         {/* Listing selector */}
         <div className="mt-6 flex flex-wrap gap-2">
@@ -104,22 +104,47 @@ export default function Dashboard() {
                       className="overflow-hidden"
                     >
                       <div className="border-t border-border px-4 pb-4 pt-3">
-                        <div className="grid grid-cols-2 gap-4 text-sm sm:grid-cols-4">
-                          <div>
-                            <p className="text-xs text-muted-foreground">Credit Score</p>
-                            <p className="font-semibold text-foreground">{app.creditScore}</p>
+                        <div className="flex flex-col sm:flex-row items-center gap-6">
+                          {/* Circular Credit Score Meter */}
+                          <div className="flex flex-col items-center">
+                            <div className="relative h-24 w-24">
+                              <svg viewBox="0 0 100 100" className="h-full w-full -rotate-90">
+                                <circle cx="50" cy="50" r="42" fill="none" strokeWidth="8" className="stroke-muted/30" />
+                                <circle
+                                  cx="50" cy="50" r="42"
+                                  fill="none"
+                                  strokeWidth="8"
+                                  strokeLinecap="round"
+                                  className={
+                                    app.creditScore >= 700 ? "stroke-screening-green" :
+                                    app.creditScore >= 600 ? "stroke-screening-yellow" :
+                                    "stroke-screening-red"
+                                  }
+                                  strokeDasharray={`${(app.creditScore / 850) * 264} 264`}
+                                />
+                              </svg>
+                              <div className="absolute inset-0 flex flex-col items-center justify-center">
+                                <span className="font-display text-lg font-bold text-foreground">{app.creditScore}</span>
+                                <span className="text-[10px] text-muted-foreground">/ 850</span>
+                              </div>
+                            </div>
+                            <p className="mt-1 text-xs font-medium text-muted-foreground">Credit Score</p>
                           </div>
-                          <div>
-                            <p className="text-xs text-muted-foreground">Annual Income</p>
-                            <p className="font-semibold text-foreground">${app.income.toLocaleString()}</p>
-                          </div>
-                          <div>
-                            <p className="text-xs text-muted-foreground">Evictions</p>
-                            <p className="font-semibold text-foreground">{app.evictions}</p>
-                          </div>
-                          <div>
-                            <p className="text-xs text-muted-foreground">Bankruptcy</p>
-                            <p className="font-semibold text-foreground">{app.bankruptcy ? "Yes" : "No"}</p>
+
+                          {/* Other Details */}
+                          <div className="grid grid-cols-3 gap-6 text-sm flex-1">
+                            <div className="text-center sm:text-left">
+                              <p className="text-xs text-muted-foreground">Evictions</p>
+                              <p className="font-semibold text-foreground">{app.evictions}</p>
+                            </div>
+                            <div className="text-center sm:text-left">
+                              <p className="text-xs text-muted-foreground">Bankruptcy</p>
+                              <p className="font-semibold text-foreground">{app.bankruptcy ? "Yes" : "No"}</p>
+                            </div>
+                            <div className="text-center sm:text-left">
+                              <p className="text-xs text-muted-foreground">Criminal Record</p>
+                              <p className="font-semibold text-foreground">None</p>
+                            </div>
                           </div>
                         </div>
 
