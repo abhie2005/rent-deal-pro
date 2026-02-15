@@ -12,7 +12,7 @@ const navLinks = [
 ];
 
 export default function Navbar() {
-  const { user, isAuthenticated, logout } = useAuth();
+  const { user, isAuthenticated, logout, switchRole } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -78,13 +78,40 @@ export default function Navbar() {
         </div>
 
         <div className="hidden items-center gap-2 md:flex">
+          <div className="flex items-center rounded-lg border border-border bg-muted/50 p-0.5">
+            <button
+              onClick={() => {
+                setSelectedRole("buyer");
+                if (isAuthenticated) switchRole("buyer");
+                navigate("/");
+              }}
+              className={`rounded-md px-3 py-1.5 text-xs font-medium transition-colors ${
+                selectedRole === "buyer"
+                  ? "bg-primary text-primary-foreground shadow-sm"
+                  : "text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              Buyer
+            </button>
+            <button
+              onClick={() => {
+                setSelectedRole("seller");
+                if (isAuthenticated) switchRole("seller");
+                navigate("/dashboard");
+              }}
+              className={`rounded-md px-3 py-1.5 text-xs font-medium transition-colors ${
+                selectedRole === "seller"
+                  ? "bg-primary text-primary-foreground shadow-sm"
+                  : "text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              Seller
+            </button>
+          </div>
           {isAuthenticated ? (
             <div className="flex items-center gap-3">
               <span className="text-sm text-muted-foreground">
                 {user?.name}
-                <span className="ml-1 rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
-                  {user?.role}
-                </span>
               </span>
               <Button variant="ghost" size="sm" onClick={logout}>
                 <LogOut className="mr-1 h-4 w-4" />
@@ -93,28 +120,6 @@ export default function Navbar() {
             </div>
           ) : (
             <>
-              <div className="flex items-center rounded-lg border border-border bg-muted/50 p-0.5">
-                <button
-                  onClick={() => { setSelectedRole("buyer"); navigate("/"); }}
-                  className={`rounded-md px-3 py-1.5 text-xs font-medium transition-colors ${
-                    selectedRole === "buyer"
-                      ? "bg-primary text-primary-foreground shadow-sm"
-                      : "text-muted-foreground hover:text-foreground"
-                  }`}
-                >
-                  Buyer
-                </button>
-                <button
-                  onClick={() => { setSelectedRole("seller"); navigate("/dashboard"); }}
-                  className={`rounded-md px-3 py-1.5 text-xs font-medium transition-colors ${
-                    selectedRole === "seller"
-                      ? "bg-primary text-primary-foreground shadow-sm"
-                      : "text-muted-foreground hover:text-foreground"
-                  }`}
-                >
-                  Seller
-                </button>
-              </div>
               <Button variant="ghost" size="sm" asChild>
                 <Link to="/login"><LogIn className="mr-1 h-4 w-4" />Log In</Link>
               </Button>
