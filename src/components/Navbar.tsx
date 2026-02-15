@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { Home, PlusCircle, LayoutDashboard, LogIn, UserPlus, Menu, X, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -14,8 +14,11 @@ const navLinks = [
 export default function Navbar() {
   const { user, isAuthenticated, logout } = useAuth();
   const location = useLocation();
+  const navigate = useNavigate();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [selectedRole, setSelectedRole] = useState<"buyer" | "seller">("buyer");
+  const [selectedRole, setSelectedRole] = useState<"buyer" | "seller">(
+    location.pathname === "/dashboard" ? "seller" : "buyer"
+  );
 
   const visibleLinks = navLinks.filter((l) => {
     if (l.auth && !isAuthenticated) return false;
@@ -73,7 +76,7 @@ export default function Navbar() {
             <>
               <div className="flex items-center rounded-lg border border-border bg-muted/50 p-0.5">
                 <button
-                  onClick={() => setSelectedRole("buyer")}
+                  onClick={() => { setSelectedRole("buyer"); navigate("/"); }}
                   className={`rounded-md px-3 py-1.5 text-xs font-medium transition-colors ${
                     selectedRole === "buyer"
                       ? "bg-primary text-primary-foreground shadow-sm"
@@ -83,7 +86,7 @@ export default function Navbar() {
                   Buyer
                 </button>
                 <button
-                  onClick={() => setSelectedRole("seller")}
+                  onClick={() => { setSelectedRole("seller"); navigate("/dashboard"); }}
                   className={`rounded-md px-3 py-1.5 text-xs font-medium transition-colors ${
                     selectedRole === "seller"
                       ? "bg-primary text-primary-foreground shadow-sm"
