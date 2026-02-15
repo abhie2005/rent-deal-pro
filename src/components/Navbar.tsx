@@ -8,7 +8,7 @@ import { motion, AnimatePresence } from "framer-motion";
 const navLinks = [
   { to: "/create-listing", label: "New Listing", icon: PlusCircle, auth: true, role: "seller" as const },
   { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard, auth: true, role: "seller" as const },
-  { to: "/seller-listings", label: "View/Edit Listings", icon: FileEdit, auth: true, role: "seller" as const },
+  { to: "/seller-listings", label: "My Listings", icon: FileEdit, auth: true, role: "seller" as const },
 ];
 
 export default function Navbar() {
@@ -65,7 +65,7 @@ export default function Navbar() {
                 }`}
               >
                 <FileEdit className="h-4 w-4" />
-                View/Edit Listings
+                My Listings
               </Link>
             </>
           )}
