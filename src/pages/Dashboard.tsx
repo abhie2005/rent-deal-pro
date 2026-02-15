@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import confetti from "canvas-confetti";
 import { mockListings, mockApplications } from "@/lib/mock-data";
 import ScreeningBadge from "@/components/ScreeningBadge";
 import { Button } from "@/components/ui/button";
@@ -39,6 +40,9 @@ export default function Dashboard() {
 
   const updateStatus = (id: string, status: "approved" | "rejected") => {
     setApplications((prev) => prev.map((a) => (a.id === id ? { ...a, status } : a)));
+    if (status === "approved") {
+      confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 } });
+    }
     toast.success(`Application ${status}`);
   };
 
