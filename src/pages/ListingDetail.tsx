@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useParams, Link, useSearchParams, useNavigate } from "react-router-dom";
-import { ArrowLeft, Bed, Bath, Maximize, MapPin, Calendar, CheckCircle2, Send, Loader2, Save } from "lucide-react";
+import { ArrowLeft, Bed, Bath, Maximize, MapPin, Calendar, CheckCircle2, Send, Loader2, Save, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 import ScreeningBadge from "@/components/ScreeningBadge";
@@ -166,6 +166,9 @@ export default function ListingDetail() {
                     </div>
                     <div className="flex gap-3 pt-2">
                       <Button variant="outline" className="flex-1" onClick={() => navigate("/seller-listings")}>Cancel</Button>
+                      <Button variant="destructive" className="flex-1" onClick={() => { toast.success("Listing deleted"); navigate("/seller-listings"); }}>
+                        <Trash2 className="mr-1 h-4 w-4" /> Discard
+                      </Button>
                       <Button className="flex-1" onClick={handleSaveEdit}>
                         <Save className="mr-1 h-4 w-4" /> Save Changes
                       </Button>
