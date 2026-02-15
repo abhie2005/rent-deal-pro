@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 
 const navLinks = [
-  { to: "/", label: "Browse", icon: Home, hideForRole: "seller" as const },
+  
   { to: "/create-listing", label: "New Listing", icon: PlusCircle, auth: true, role: "seller" as const },
   { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard, auth: true, role: "seller" as const },
 ];
@@ -30,7 +30,7 @@ export default function Navbar() {
           <Link to="/" className="flex h-9 w-9 items-center justify-center rounded-lg" style={{ background: "var(--gradient-primary)" }}>
             <Home className="h-5 w-5 text-primary-foreground" />
           </Link>
-          <Link to="/about" className="font-display text-xl font-semibold text-foreground hover:text-primary transition-colors">
+          <Link to="/" className="font-display text-xl font-semibold text-foreground hover:text-primary transition-colors">
             TrustKey
           </Link>
         </div>
