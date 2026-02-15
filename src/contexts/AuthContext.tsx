@@ -13,6 +13,7 @@ interface AuthContextType {
   login: (email: string, password: string) => Promise<void>;
   register: (email: string, password: string, name: string, role: "buyer" | "seller") => Promise<void>;
   logout: () => void;
+  switchRole: (role: "buyer" | "seller") => void;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -41,8 +42,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     localStorage.removeItem("homescreen_user");
   }, []);
 
+  const switchRole = useCallback((role: "buyer" | "seller") => {
+    setUser((prev) => {
+      if (!prev) return prev;
+      const updated = { ...prev, role };
+      localStorage.setItem("homescreen_user", JSON.stringify(updated));
+      return updated;
+    });
+  }, []);
+
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated: !!user, login, register, logout }}>
+    <AuthContext.Provider value={{ user, isAuthenticated: !!user, login, register, logout, switchRole }}>
       {children}
     </AuthContext.Provider>
   );
