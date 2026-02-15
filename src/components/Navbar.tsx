@@ -41,6 +41,28 @@ export default function Navbar() {
 
         {/* Desktop nav */}
         <div className="hidden items-center gap-1 md:flex">
+          {!isAuthenticated && selectedRole === "seller" && (
+            <>
+              <Link
+                to="/create-listing"
+                className={`flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
+                  location.pathname === "/create-listing" ? "bg-primary/10 text-primary" : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                }`}
+              >
+                <PlusCircle className="h-4 w-4" />
+                New Listing
+              </Link>
+              <Link
+                to="/dashboard"
+                className={`flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
+                  location.pathname === "/dashboard" ? "bg-primary/10 text-primary" : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                }`}
+              >
+                <LayoutDashboard className="h-4 w-4" />
+                Dashboard
+              </Link>
+            </>
+          )}
           {visibleLinks.map((l) => {
             const active = location.pathname === l.to;
             return (
