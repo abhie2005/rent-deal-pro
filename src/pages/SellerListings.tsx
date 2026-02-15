@@ -70,12 +70,12 @@ export default function SellerListings() {
 
                   <div className="mt-4 flex gap-2">
                     <Button size="sm" variant="outline" asChild className="flex-1">
-                      <Link to={`/listing/${listing.id}`}>
+                      <Link to={`/listing/${listing.id}?mode=view`}>
                         <Eye className="mr-1 h-4 w-4" /> View
                       </Link>
                     </Button>
                     <Button size="sm" asChild className="flex-1">
-                      <Link to={`/listing/${listing.id}`}>
+                      <Link to={`/listing/${listing.id}?mode=edit`}>
                         <Edit className="mr-1 h-4 w-4" /> Edit
                       </Link>
                     </Button>
