@@ -6,9 +6,9 @@ import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 
 const navLinks = [
-  
   { to: "/create-listing", label: "New Listing", icon: PlusCircle, auth: true, role: "seller" as const },
   { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard, auth: true, role: "seller" as const },
+  { to: "/", label: "View/Edit Listings", icon: FileEdit, auth: true, role: "seller" as const },
 ];
 
 export default function Navbar() {
