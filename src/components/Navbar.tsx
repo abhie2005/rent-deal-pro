@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
-import { Home, PlusCircle, LayoutDashboard, LogIn, UserPlus, Menu, X, LogOut } from "lucide-react";
+import { Home, PlusCircle, LayoutDashboard, LogIn, UserPlus, Menu, X, LogOut, FileEdit } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -57,6 +57,15 @@ export default function Navbar() {
               >
                 <LayoutDashboard className="h-4 w-4" />
                 Dashboard
+              </Link>
+              <Link
+                to="/"
+                className={`flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
+                  location.pathname === "/" && selectedRole === "seller" ? "bg-primary/10 text-primary" : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                }`}
+              >
+                <FileEdit className="h-4 w-4" />
+                View/Edit Listings
               </Link>
             </>
           )}
