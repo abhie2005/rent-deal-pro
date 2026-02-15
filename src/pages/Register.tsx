@@ -45,32 +45,6 @@ export default function Register() {
         <form onSubmit={handleSubmit} className="mt-6 space-y-4">
           {error && <p className="rounded-lg bg-destructive/10 p-3 text-sm text-destructive">{error}</p>}
 
-          {/* Role selector */}
-          <div>
-            <label className="mb-1.5 block text-sm font-medium text-foreground">I am a...</label>
-            <div className="grid grid-cols-2 gap-3">
-              <button
-                type="button"
-                onClick={() => setRole("buyer")}
-                className={`flex flex-col items-center gap-2 rounded-xl border-2 p-4 transition-colors ${
-                role === "buyer" ? "border-primary bg-primary/5" : "border-border hover:border-muted-foreground/30"}`
-                }>
-
-                
-                
-              </button>
-              <button
-                type="button"
-                onClick={() => setRole("seller")}
-                className={`flex flex-col items-center gap-2 rounded-xl border-2 p-4 transition-colors ${
-                role === "seller" ? "border-primary bg-primary/5" : "border-border hover:border-muted-foreground/30"}`
-                }>
-
-                <Key className={`h-6 w-6 ${role === "seller" ? "text-primary" : "text-muted-foreground"}`} />
-                <span className={`text-sm font-medium ${role === "seller" ? "text-primary" : "text-muted-foreground"}`}>Landlord / Seller</span>
-              </button>
-            </div>
-          </div>
 
           <div>
             <label className="mb-1.5 block text-sm font-medium text-foreground">Full Name</label>
