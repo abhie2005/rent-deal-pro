@@ -30,7 +30,7 @@ export default function Navbar() {
           <Link to="/" className="flex h-9 w-9 items-center justify-center rounded-lg" style={{ background: "var(--gradient-primary)" }}>
             <Home className="h-5 w-5 text-primary-foreground" />
           </Link>
-          <Link to="/" className="text-xl font-semibold text-foreground hover:text-primary transition-colors" style={{ fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif" }}>
+          <Link to="/" className="text-xl font-semibold text-foreground hover:text-primary transition-colors" style={{ fontFamily: "'Roboto', sans-serif" }}>
             TrustKey
           </Link>
         </div>
