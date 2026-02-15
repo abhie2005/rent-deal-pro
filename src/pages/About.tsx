@@ -7,7 +7,7 @@ const teamMembers = [
   { name: "Tiea Hapani", linkedin: "https://www.linkedin.com/in/tiea-hapani-1849ba283/" },
   { name: "Princy Ramani", linkedin: "https://www.linkedin.com/in/princy-ramani" },
   { name: "Abhishek Rangani", linkedin: "https://www.linkedin.com/in/abhishek-rangani/" },
-  { name: "Ayush Rangrej" },
+  { name: "Ayush Rangrej", linkedin: "https://www.linkedin.com/in/ayush-rangrej/" },
 ];
 
 export default function About() {
