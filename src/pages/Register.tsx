@@ -8,9 +8,7 @@ import { motion } from "framer-motion";
 export default function Register() {
   const { register } = useAuth();
   const navigate = useNavigate();
-  const [lastName, setLastName] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [dob, setDob] = useState("");
+  const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState<"buyer" | "seller">("buyer");
@@ -20,10 +18,9 @@ export default function Register() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
-    if (!lastName || !firstName || !dob || !email || !password) { setError("Please fill in all fields"); return; }
+    if (!fullName || !email || !password) { setError("Please fill in all fields"); return; }
     setLoading(true);
     try {
-      const fullName = `${firstName} ${lastName}`;
       await register(email, password, fullName, role);
       navigate(role === "seller" ? "/dashboard" : "/");
     } catch {
@@ -76,33 +73,12 @@ export default function Register() {
           </div>
 
           <div>
-            <label className="mb-1.5 block text-sm font-medium text-foreground">Last Name</label>
+            <label className="mb-1.5 block text-sm font-medium text-foreground">Full Name</label>
             <input
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
+              value={fullName}
+              onChange={(e) => setFullName(e.target.value)}
               className="w-full rounded-lg border border-input bg-background px-3 py-2.5 text-sm outline-none placeholder:text-muted-foreground focus:ring-2 focus:ring-ring"
-              placeholder="Doe"
-            />
-          </div>
-
-          <div>
-            <label className="mb-1.5 block text-sm font-medium text-foreground">First Name</label>
-            <input
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-              className="w-full rounded-lg border border-input bg-background px-3 py-2.5 text-sm outline-none placeholder:text-muted-foreground focus:ring-2 focus:ring-ring"
-              placeholder="Jane"
-            />
-          </div>
-
-          <div>
-            <label className="mb-1.5 block text-sm font-medium text-foreground">Date of Birth</label>
-            <input
-              type="text"
-              value={dob}
-              onChange={(e) => setDob(e.target.value)}
-              className="w-full rounded-lg border border-input bg-background px-3 py-2.5 text-sm outline-none placeholder:text-muted-foreground focus:ring-2 focus:ring-ring"
-              placeholder="MM/DD/YY"
+              placeholder="Jane Doe"
             />
           </div>
 
