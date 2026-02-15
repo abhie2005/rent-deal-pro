@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { ArrowLeft, Bed, Bath, Maximize, MapPin, Calendar, CheckCircle2, Send, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import PropertyChat from "@/components/PropertyChat";
+
 import ScreeningBadge from "@/components/ScreeningBadge";
 import { mockListings } from "@/lib/mock-data";
 import { useAuth } from "@/contexts/AuthContext";
@@ -238,7 +238,7 @@ export default function ListingDetail() {
         </DialogContent>
       </Dialog>
 
-      <PropertyChat listingId={listing.id} />
+      
     </div>
   );
 }
