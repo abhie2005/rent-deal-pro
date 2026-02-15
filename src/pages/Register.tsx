@@ -34,7 +34,7 @@ export default function Register() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center px-4 pt-16" style={{ background: "var(--gradient-hero)" }}>
+    <div className="flex min-h-screen items-center justify-center px-4 pt-16">
       <motion.div
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
