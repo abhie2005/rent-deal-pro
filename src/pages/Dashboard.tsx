@@ -78,7 +78,7 @@ export default function Dashboard() {
             filteredApps.map((app) => {
               const listing = mockListings.find((l) => l.id === app.listingId);
               const isExpanded = expanded === app.id;
-              const dashLen = (app.creditScore / 850) * 264;
+              const dashLen = (app.matchScore / 100) * 264;
 
               return (
               <div key={app.id} className="overflow-hidden rounded-xl border border-primary/15 bg-gradient-to-r from-primary/5 via-card to-card card-shadow">
@@ -122,7 +122,7 @@ export default function Dashboard() {
                     >
                       <div className="border-t border-border px-4 pb-4 pt-3">
                         <div className="flex flex-col sm:flex-row items-center gap-6">
-                          {/* Animated Circular Credit Score Meter */}
+                          {/* Animated Circular TrustKey Score Meter */}
                           <div className="flex flex-col items-center">
                             <div className="relative h-24 w-24">
                               <svg viewBox="0 0 100 100" className="h-full w-full -rotate-90">
@@ -133,21 +133,22 @@ export default function Dashboard() {
                                   strokeWidth="8"
                                   strokeLinecap="round"
                                   className={
-                                    app.creditScore >= 700 ? "stroke-screening-green" :
-                                    app.creditScore >= 600 ? "stroke-screening-yellow" :
+                                    app.matchScore >= 75 ? "stroke-screening-green" :
+                                    app.matchScore >= 50 ? "stroke-screening-yellow" :
                                     "stroke-screening-red"
                                   }
                                   initial={{ strokeDasharray: "0 264" }}
                                   animate={{ strokeDasharray: `${dashLen} 264` }}
-                                  transition={{ duration: 1, ease: "easeOut" }}
+                                  transition={{ duration: 1.2, ease: "easeOut" }}
+                                  key={app.id + "-meter"}
                                 />
                               </svg>
                               <div className="absolute inset-0 flex flex-col items-center justify-center">
-                                <span className="font-display text-lg font-bold text-foreground">{app.creditScore}</span>
-                                <span className="text-[10px] text-muted-foreground">/ 850</span>
+                                <span className="font-display text-lg font-bold text-foreground">{app.matchScore}</span>
+                                <span className="text-[10px] text-muted-foreground">/ 100</span>
                               </div>
                             </div>
-                            <p className="mt-1 text-xs font-medium text-muted-foreground">Credit Score</p>
+                            <p className="mt-1 text-xs font-medium text-muted-foreground">TrustKey Score</p>
                           </div>
 
                           {/* Other Details */}
