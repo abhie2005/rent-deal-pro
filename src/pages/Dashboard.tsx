@@ -53,15 +53,15 @@ export default function Dashboard() {
 
         {/* Stats */}
         <div className="mt-6 grid grid-cols-3 gap-4">
-          <div className="rounded-xl border border-primary/20 bg-gradient-to-br from-primary/5 to-primary/10 p-4 card-shadow">
+          <div className="rounded-xl border border-primary/15 bg-primary/5 p-4 card-shadow">
             <div className="flex items-center gap-2 text-primary"><Users className="h-4 w-4" /> Applicants</div>
             <p className="mt-1 font-display text-2xl font-bold text-foreground"><AnimatedNumber value={filteredApps.length} /></p>
           </div>
-          <div className="rounded-xl border border-screening-green/20 bg-gradient-to-br from-screening-green/5 to-screening-green/10 p-4 card-shadow">
+          <div className="rounded-xl border border-screening-green/15 bg-screening-green-bg p-4 card-shadow">
             <div className="flex items-center gap-2 text-screening-green"><CheckCircle2 className="h-4 w-4" /> Approved</div>
             <p className="mt-1 font-display text-2xl font-bold text-foreground"><AnimatedNumber value={filteredApps.filter((a) => a.status === "approved").length} /></p>
           </div>
-          <div className="rounded-xl border border-screening-red/20 bg-gradient-to-br from-screening-red/5 to-screening-red/10 p-4 card-shadow">
+          <div className="rounded-xl border border-screening-red/15 bg-screening-red-bg p-4 card-shadow">
             <div className="flex items-center gap-2 text-screening-red"><XCircle className="h-4 w-4" /> Rejected</div>
             <p className="mt-1 font-display text-2xl font-bold text-foreground"><AnimatedNumber value={rejectedCount} /></p>
           </div>
@@ -81,7 +81,7 @@ export default function Dashboard() {
               const dashLen = (app.matchScore / 100) * 264;
 
               return (
-              <div key={app.id} className="overflow-hidden rounded-xl border border-primary/15 bg-gradient-to-r from-primary/5 via-card to-card card-shadow">
+              <div key={app.id} className="overflow-hidden rounded-xl border border-border bg-card card-shadow">
                 <button
                   onClick={() => setExpanded(isExpanded ? null : app.id)}
                   className="flex w-full items-center justify-between p-4 text-left"

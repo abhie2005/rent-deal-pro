@@ -73,7 +73,7 @@ export default function Index() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             className="font-display text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl"
-            style={{ WebkitTextStroke: "1px black", textShadow: "0 0 4px rgba(0,0,0,0.3)" }}
+            style={{ textShadow: "0 2px 8px rgba(0,0,0,0.3)" }}
           >
             Find Your Perfect Home
           </motion.h1>
@@ -81,8 +81,8 @@ export default function Index() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.15 }}
-            className="mt-4 text-lg text-white"
-            style={{ WebkitTextStroke: "0.5px black", textShadow: "0 0 4px rgba(0,0,0,0.3)" }}
+            className="mt-4 text-lg text-white/90"
+            style={{ textShadow: "0 1px 4px rgba(0,0,0,0.2)" }}
           >
             AI-powered screening, instant credit checks, and a smart assistant for every listing.
           </motion.p>
@@ -160,7 +160,7 @@ export default function Index() {
       </section>
 
       {/* Filters + Listings */}
-      <section className="container mx-auto px-4 py-10 rounded-2xl" style={{ background: "linear-gradient(135deg, hsla(270, 65%, 50%, 0.12), hsla(320, 60%, 55%, 0.08), hsla(30, 85%, 60%, 0.05), hsla(0, 0%, 100%, 0.7))" }}>
+      <section className="container mx-auto px-4 py-10">
         {/* Filter bar */}
         <div className="mb-8 flex flex-wrap items-center gap-3">
           <div className="flex items-center gap-1 rounded-lg border border-border p-1">
