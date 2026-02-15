@@ -84,7 +84,7 @@ export default function Dashboard() {
                   className="flex w-full items-center justify-between p-4 text-left"
                 >
                   <div className="flex items-center gap-4">
-                    <div className="flex h-9 w-9 items-center justify-center rounded-full font-bold text-sm text-primary-foreground" style={{ background: "var(--gradient-primary)" }}>
+                    <div className="flex h-9 w-9 items-center justify-center rounded-full font-bold text-sm text-white bg-foreground">
                       {app.applicantName.split(" ").map(n => n[0]).join("")}
                     </div>
                     <div>
