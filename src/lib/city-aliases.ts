@@ -35,7 +35,7 @@ export function getMatchingCities(query: string): string[] {
   return Array.from(matched);
 }
 
-export function matchesSearch(query: string, listing: { title: string; city: string; address: string; state: string }): boolean {
+export function matchesSearch(query: string, listing: { title: string; city: string; address: string; state: string; zip: string }): boolean {
   if (!query) return true;
   const q = query.toLowerCase().trim();
 
@@ -44,7 +44,8 @@ export function matchesSearch(query: string, listing: { title: string; city: str
     listing.title.toLowerCase().includes(q) ||
     listing.city.toLowerCase().includes(q) ||
     listing.address.toLowerCase().includes(q) ||
-    listing.state.toLowerCase().includes(q)
+    listing.state.toLowerCase().includes(q) ||
+    listing.zip.includes(q)
   ) return true;
 
   // Alias match

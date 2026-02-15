@@ -12,6 +12,7 @@ export const mockListings: Listing[] = [
     city: "Austin",
     state: "TX",
     address: "456 Congress Ave",
+    zip: "78701",
     listingType: "rent",
     images: [
       "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&h=600&fit=crop",
@@ -33,6 +34,7 @@ export const mockListings: Listing[] = [
     city: "Portland",
     state: "OR",
     address: "2312 SE Hawthorne Blvd",
+    zip: "97214",
     listingType: "sale",
     images: [
       "https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=800&h=600&fit=crop",
@@ -53,6 +55,7 @@ export const mockListings: Listing[] = [
     city: "Miami",
     state: "FL",
     address: "1000 Brickell Ave",
+    zip: "33131",
     listingType: "rent",
     images: [
       "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&h=600&fit=crop",
@@ -73,6 +76,7 @@ export const mockListings: Listing[] = [
     city: "Denver",
     state: "CO",
     address: "800 E Colfax Ave",
+    zip: "80218",
     listingType: "rent",
     images: [
       "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800&h=600&fit=crop",
@@ -92,6 +96,7 @@ export const mockListings: Listing[] = [
     city: "San Francisco",
     state: "CA",
     address: "1420 Haight St",
+    zip: "94117",
     listingType: "sale",
     images: [
       "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=600&fit=crop",
@@ -112,6 +117,7 @@ export const mockListings: Listing[] = [
     city: "Charlotte",
     state: "NC",
     address: "5500 Providence Rd",
+    zip: "28226",
     listingType: "sale",
     images: [
       "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&h=600&fit=crop",

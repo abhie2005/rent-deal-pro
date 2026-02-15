@@ -15,6 +15,7 @@ export interface Listing {
   city: string;
   state: string;
   address: string;
+  zip: string;
   listingType: "rent" | "sale";
   images: string[];
   amenities: string[];

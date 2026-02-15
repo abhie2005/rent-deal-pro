@@ -129,7 +129,7 @@ export default function Index() {
                   onFocus={handleFocus}
                   onBlur={handleBlur}
                   onKeyDown={(e) => e.key === "Escape" && setShowSuggestions(false)}
-                  placeholder="Search by city, abbreviation, or address..."
+                  placeholder="Search by city, zip code, or address..."
                   className="w-full bg-transparent py-4 text-sm outline-none placeholder:text-muted-foreground"
                 />
                 {search && (
