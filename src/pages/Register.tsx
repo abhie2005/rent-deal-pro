@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
-import { UserPlus, Home, Key } from "lucide-react";
+import { UserPlus, Key } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function Register() {
@@ -56,7 +56,7 @@ export default function Register() {
                 role === "buyer" ? "border-primary bg-primary/5" : "border-border hover:border-muted-foreground/30"}`
                 }>
 
-                <Home className={`h-6 w-6 ${role === "buyer" ? "text-primary" : "text-muted-foreground"}`} />
+                
                 
               </button>
               <button
