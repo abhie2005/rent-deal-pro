@@ -56,7 +56,7 @@ export default function Dashboard() {
               const dashLen = (app.creditScore / 850) * 264;
 
               return (
-              <div key={app.id} className="overflow-hidden rounded-xl border border-border bg-card card-shadow">
+              <div key={app.id} className="overflow-hidden rounded-xl border border-primary/15 bg-gradient-to-r from-primary/5 via-card to-card card-shadow">
                 <button
                   onClick={() => setExpanded(isExpanded ? null : app.id)}
                   className="flex w-full items-center justify-between p-4 text-left"
