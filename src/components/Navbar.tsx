@@ -59,7 +59,7 @@ export default function Navbar() {
             <div className="flex items-center gap-3">
               <span className="text-sm text-muted-foreground">
                 {user?.name}
-                <span className="ml-1 rounded-full bg-secondary/20 px-2 py-0.5 text-xs font-medium text-secondary">
+                <span className="ml-1 rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
                   {user?.role}
                 </span>
               </span>
