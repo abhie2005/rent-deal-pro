@@ -21,8 +21,9 @@ export default function ListingDetail() {
   const listing = mockListings.find((l) => l.id === id);
   const [selectedImage, setSelectedImage] = useState(0);
   const [applyOpen, setApplyOpen] = useState(false);
-  const [applyState, setApplyState] = useState<"idle" | "loading" | "success">("idle");
+  const [applyState, setApplyState] = useState<"form" | "loading" | "success">("form");
   const [matchScore] = useState(87);
+  const [applyForm, setApplyForm] = useState({ lastName: "", firstName: "", dob: "", email: "" });
 
   if (!listing) {
     return (
@@ -190,17 +191,30 @@ export default function ListingDetail() {
           </DialogHeader>
 
           <AnimatePresence mode="wait">
-            {applyState === "idle" && (
-              <motion.div key="idle" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="space-y-4">
-                <div className="rounded-lg bg-muted p-4 text-sm text-muted-foreground">
-                  <p>✓ Soft credit check (no score impact)</p>
-                  <p>✓ Income verification</p>
-                  <p>✓ Background screening</p>
-                  <p>✓ Instant match score</p>
+            {applyState === "form" && (
+              <motion.div key="form" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="space-y-4">
+                <div className="space-y-3">
+                  <div>
+                    <label className="mb-1.5 block text-sm font-medium text-foreground">Last Name</label>
+                    <input value={applyForm.lastName} onChange={(e) => setApplyForm(f => ({ ...f, lastName: e.target.value }))} className="w-full rounded-lg border border-input bg-background px-3 py-2.5 text-sm outline-none placeholder:text-muted-foreground focus:ring-2 focus:ring-ring" placeholder="Doe" />
+                  </div>
+                  <div>
+                    <label className="mb-1.5 block text-sm font-medium text-foreground">First Name</label>
+                    <input value={applyForm.firstName} onChange={(e) => setApplyForm(f => ({ ...f, firstName: e.target.value }))} className="w-full rounded-lg border border-input bg-background px-3 py-2.5 text-sm outline-none placeholder:text-muted-foreground focus:ring-2 focus:ring-ring" placeholder="Jane" />
+                  </div>
+                  <div>
+                    <label className="mb-1.5 block text-sm font-medium text-foreground">Date of Birth</label>
+                    <input value={applyForm.dob} onChange={(e) => setApplyForm(f => ({ ...f, dob: e.target.value }))} className="w-full rounded-lg border border-input bg-background px-3 py-2.5 text-sm outline-none placeholder:text-muted-foreground focus:ring-2 focus:ring-ring" placeholder="MM/DD/YY" />
+                  </div>
+                  <div>
+                    <label className="mb-1.5 block text-sm font-medium text-foreground">Email</label>
+                    <input type="email" value={applyForm.email} onChange={(e) => setApplyForm(f => ({ ...f, email: e.target.value }))} className="w-full rounded-lg border border-input bg-background px-3 py-2.5 text-sm outline-none placeholder:text-muted-foreground focus:ring-2 focus:ring-ring" placeholder="you@example.com" />
+                  </div>
                 </div>
+                <p className="text-xs text-muted-foreground">By applying, you consent to a soft credit check. This won't affect your credit score.</p>
                 <div className="flex gap-3">
                   <Button variant="outline" className="flex-1" onClick={() => setApplyOpen(false)}>Cancel</Button>
-                  <Button className="flex-1" onClick={handleApply}>I Consent &amp; Apply</Button>
+                  <Button className="flex-1" onClick={handleApply} disabled={!applyForm.lastName || !applyForm.firstName || !applyForm.dob || !applyForm.email}>Apply</Button>
                 </div>
               </motion.div>
             )}
@@ -217,7 +231,7 @@ export default function ListingDetail() {
                 </div>
                 <h3 className="font-display text-xl font-semibold text-foreground">Application Submitted!</h3>
                 <p className="text-sm text-muted-foreground">Your match score is {matchScore}/100. The landlord will review your application and reach out soon.</p>
-                <Button className="w-full" onClick={() => { setApplyOpen(false); setApplyState("idle"); }}>Done</Button>
+                <Button className="w-full" onClick={() => { setApplyOpen(false); setApplyState("form"); setApplyForm({ lastName: "", firstName: "", dob: "", email: "" }); }}>Done</Button>
               </motion.div>
             )}
           </AnimatePresence>
