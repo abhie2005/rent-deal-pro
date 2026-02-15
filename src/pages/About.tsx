@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
 const teamMembers = [
-  { name: "Tiea Hapani" },
+  { name: "Tiea Hapani", linkedin: "https://www.linkedin.com/in/tiea-hapani-1849ba283/" },
   { name: "Princy Ramani", linkedin: "https://www.linkedin.com/in/princy-ramani" },
   { name: "Abhishek Rangani" },
   { name: "Ayush Rangrej" },
